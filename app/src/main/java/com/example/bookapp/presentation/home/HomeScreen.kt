@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bookapp.R
 import com.example.bookapp.databinding.FragmentHomeScreenBinding
 import com.example.bookapp.domain.models.Resource
+import com.example.bookapp.presentation.commons.BookAdapter
 import com.example.bookapp.presentation.utils.AdapterScrollListener
 import com.example.bookapp.presentation.utils.hide
 import com.example.bookapp.presentation.utils.show
@@ -36,7 +37,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         binding.booksRV.addOnScrollListener(
             AdapterScrollListener(
                 gridLayoutManager,
-                onNext = { viewModel.fetchNxtPage() })
+                onNext = { viewModel.fetchNextPage() })
         )
         binding.booksRV.apply {
             layoutManager = gridLayoutManager

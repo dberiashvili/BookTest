@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchNxtPage() {
+    fun fetchNextPage() {
         viewModelScope.launch {
             _bookResponse.emit(Resource.Loading())
             try {

@@ -3,10 +3,10 @@ package com.example.bookapp.data.repository
 import com.example.bookapp.data.db.BookDB
 import com.example.bookapp.data.service.BookService
 import com.example.bookapp.domain.models.Book
+import com.example.bookapp.domain.models.BookDetails
 import com.example.bookapp.domain.models.BookResponse
 import com.example.bookapp.domain.repository.BooksRepository
 import com.example.bookapp.domain.toDomain
-import com.example.bookapp.domain.models.BookDetails
 import com.example.bookapp.domain.toEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

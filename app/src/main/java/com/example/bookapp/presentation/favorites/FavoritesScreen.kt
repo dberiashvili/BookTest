@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bookapp.R
 import com.example.bookapp.databinding.FragmentFavoritesScreenBinding
-import com.example.bookapp.presentation.home.BookAdapter
+import com.example.bookapp.presentation.commons.BookAdapter
 import com.example.bookapp.presentation.utils.hide
 import com.example.bookapp.presentation.utils.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,11 +34,19 @@ class FavoritesScreen : Fragment(R.layout.fragment_favorites_screen) {
         }
         lifecycleScope.launchWhenStarted {
             viewModel.savedBooks.collect {
-                if (it.isEmpty()){
+                if (it.isEmpty()) {
                     binding.emptyTV.show()
-                }
-                else {
+                } else {
                     binding.emptyTV.hide()
+                }
+                it.map {
+                    bookAdapter.onClick = { book ->
+                        findNavController().navigate(
+                            FavoritesScreenDirections.actionFavoritesScreenToDetailsScreen(
+                                book
+                            )
+                        )
+                    }
                 }
                 bookAdapter.addBooks(it)
             }

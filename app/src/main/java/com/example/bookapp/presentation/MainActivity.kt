@@ -1,10 +1,11 @@
-package com.example.bookapp
+package com.example.bookapp.presentation
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.bookapp.R
 import com.example.bookapp.databinding.ActivityMainBinding
 
 import dagger.hilt.android.AndroidEntryPoint

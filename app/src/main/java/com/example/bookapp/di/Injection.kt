@@ -23,7 +23,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataModule {
+class Injection {
     private val json: Json = Json {
         ignoreUnknownKeys = true
     }

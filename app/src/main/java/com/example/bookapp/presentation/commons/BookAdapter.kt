@@ -1,4 +1,4 @@
-package com.example.bookapp.presentation.home
+package com.example.bookapp.presentation.commons
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

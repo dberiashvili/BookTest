@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_favoritesScreen_to_homeScreen"
             app:destination="@id/homeScreen" />
+        <action
+            android:id="@+id/action_favoritesScreen_to_detailsScreen"
+            app:destination="@id/detailsScreen" />
     </fragment>
     <fragment
         android:id="@+id/detailsScreen"

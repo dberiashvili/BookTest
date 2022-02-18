@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BookApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="retry">Retry</string>
+    <string name="list_is_empty">List is empty</string>
+</resources>

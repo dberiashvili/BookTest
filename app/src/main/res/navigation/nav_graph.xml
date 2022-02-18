@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreen">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.bookapp.presentation.home.HomeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_detailsScreen"
+            app:destination="@id/detailsScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_favoritesScreen"
+            app:destination="@id/favoritesScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesScreen"
+        android:name="com.example.bookapp.presentation.favorites.FavoritesScreen"
+        android:label="fragment_favorites_screen"
+        tools:layout="@layout/fragment_favorites_screen" >
+        <action
+            android:id="@+id/action_favoritesScreen_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsScreen"
+        android:name="com.example.bookapp.presentation.details.DetailsScreen"
+        android:label="fragment_details_screen"
+        tools:layout="@layout/fragment_details_screen" >
+
+        <action
+            android:id="@+id/action_detailsScreen_to_homeScreen"
+            app:destination="@id/homeScreen" />
+        <argument
+            android:name="book"
+            app:argType="com.example.bookapp.domain.models.Book" />
+    </fragment>
+</navigation>

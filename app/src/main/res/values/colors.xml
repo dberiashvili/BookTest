@@ -11,4 +11,6 @@
     <color name="dark_green">#012B03</color>
     <color name="bottom_nav_color">#0f1527</color>
     <color name="background_color_dark">#0f1527</color>
+    <color name="lightGray">#E0DBDB</color>
+    <color name="yellow">#FFEB3B</color>
 </resources>

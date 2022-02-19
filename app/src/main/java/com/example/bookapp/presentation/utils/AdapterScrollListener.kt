@@ -10,7 +10,7 @@ class AdapterScrollListener(
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
-        if (layoutManager.findLastCompletelyVisibleItemPosition() + 1 == layoutManager.itemCount){
+        if (dy > 0 && layoutManager.findLastCompletelyVisibleItemPosition() + 1 == layoutManager.itemCount) {
             onNext()
         }
     }

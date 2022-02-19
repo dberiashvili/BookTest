@@ -41,15 +41,14 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/booksRV"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/retryView"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:background="@color/purple_200"
+        android:background="@drawable/retry_view_background"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/booksRV"
         app:layout_constraintEnd_toEndOf="@id/booksRV"
@@ -61,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textAlignment="center"
+        android:fontFamily="@font/poppins_medium"
         android:textColor="@color/red"
         app:layout_constraintEnd_toEndOf="@id/retryView"
         app:layout_constraintStart_toStartOf="@id/retryView"

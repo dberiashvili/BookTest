@@ -22,7 +22,7 @@ class BooksRepoImpl @Inject constructor(private val service: BookService, privat
     }
 
     override fun getSavedBooks(): Flow<List<Book>> {
-        return bookDB.dao.getBooks().map { list->
+        return bookDB.dao.getBooks().map { list ->
             list.map { entity ->
                 entity.toDomain()
             }
@@ -31,5 +31,13 @@ class BooksRepoImpl @Inject constructor(private val service: BookService, privat
 
     override suspend fun saveBook(book: Book) {
         return bookDB.dao.saveBook(book.toEntity())
+    }
+
+    override suspend fun deleteBook(book: Book) {
+        bookDB.dao.deleteFromFavorites(book.toEntity())
+    }
+
+    override suspend fun getBookById(id: Int): Book? {
+        return bookDB.dao.getBookById(id)?.toDomain()
     }
 }

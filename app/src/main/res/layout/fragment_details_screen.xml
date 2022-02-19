@@ -25,16 +25,58 @@
         app:layout_constraintStart_toStartOf="@id/poster"
         app:layout_constraintTop_toTopOf="@id/poster" />
 
-    <TextView
-        android:id="@+id/authorTV"
+    <ImageView
+        android:id="@+id/favButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:src="@drawable/ic_baseline_favorite_24"
+        app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+        app:layout_constraintEnd_toEndOf="@id/poster"
+        app:layout_constraintTop_toTopOf="@id/ratingBar" />
+
+    <ImageView
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:src="@drawable/ic_baseline_share_24"
+        app:layout_constraintBottom_toBottomOf="@id/favButton"
+        app:layout_constraintEnd_toEndOf="@id/favButton"
+        app:layout_constraintTop_toTopOf="@id/favButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/openInBrowserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_file_open_24"
+        app:layout_constraintBottom_toBottomOf="@id/favButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/favButton" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@id/poster"
+        android:numStars="5"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/poster"
+        app:layout_goneMarginTop="16dp" />
+
+    <TextView
+        android:id="@+id/authorTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar"
         tools:text="author" />
 
     <TextView
@@ -42,10 +84,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/authorTV"
         app:layout_constraintTop_toBottomOf="@id/authorTV"
         tools:text="publisher" />
+
+    <TextView
+        android:id="@+id/yearTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/publisherTV"
+        app:layout_constraintTop_toBottomOf="@id/publisherTV"
+        tools:text="year" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        tools:text="description"
+        app:layout_constraintTop_toBottomOf="@id/yearTV"
+        android:layout_margin ="16dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"

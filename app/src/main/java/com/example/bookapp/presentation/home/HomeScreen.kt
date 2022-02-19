@@ -85,11 +85,11 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         var job: Job? = null
         binding.searchET.addTextChangedListener { editable ->
             job?.cancel()
-            bookAdapter.clearList()
             job = MainScope().launch {
                 delay(500)
-                if (editable.toString().length > 2) {
 
+                if (editable.toString().length > 2) {
+                    bookAdapter.clearList()
                     viewModel.query.value = editable.toString()
                     viewModel.page = 0
                     viewModel.getBooksResponse(viewModel.query.value, viewModel.page)

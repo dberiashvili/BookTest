@@ -20,7 +20,7 @@ fun BookResponseDTO.toDomain(): BookResponse {
 
 fun BookDTO.toDomain(): Book {
     return Book(
-        title, subtitle, isbn, price, image, url, isFavorite = false
+       id = 0, title, subtitle, isbn, price, image, url, isFavorite = false
     )
 }
 
@@ -32,12 +32,12 @@ fun BookDetailsDTO.toDomain(): BookDetails {
 
 fun BookEntity.toDomain(): Book {
     return Book(
-        title, subtitle, isbn, price, image, url, isFavorite
+       id, title, subtitle, isbn, price, image, url, isFavorite
     )
 }
 
 fun Book.toEntity(): BookEntity {
     return BookEntity(
-        id = 0, title, subtitle, isbn, price, image, url, isFavorite
+        id, title, subtitle, isbn, price, image, url, isFavorite
     )
 }

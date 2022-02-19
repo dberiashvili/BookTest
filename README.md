@@ -19,8 +19,3 @@
 - Glide for loading the images
 - ViewBinding
 
-
-## Demo
-
-https://media.giphy.com/media/AuzQjAuX9r6HYM9zEh/giphy.gif
-

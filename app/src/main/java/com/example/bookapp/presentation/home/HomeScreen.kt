@@ -48,6 +48,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
         viewModel.getBooks.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
+                    binding.booksRV.show()
                     binding.retryView.hide()
                     val books = it.data!!.books
                     books.map {
@@ -66,6 +67,7 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                 is Resource.Loading -> {
                     binding.retryView.hide()
                     binding.loading.show()
+                    binding.booksRV.hide()
                 }
 
                 is Resource.Error -> {

@@ -37,7 +37,7 @@ class BooksRepoImpl @Inject constructor(private val service: BookService, privat
         bookDB.dao.deleteFromFavorites(book.toEntity())
     }
 
-    override suspend fun getBookById(id: Int): Book? {
-        return bookDB.dao.getBookById(id)?.toDomain()
+    override suspend fun bookExists(isbn: String): Book? {
+        return bookDB.dao.bookExists(isbn)?.toDomain()
     }
 }

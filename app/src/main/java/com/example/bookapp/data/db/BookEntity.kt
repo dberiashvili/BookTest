@@ -13,5 +13,5 @@ data class BookEntity(
     val price: String,
     val image: String,
     val url: String,
-    var isFavorite: Boolean
+    var isFavourite: Boolean = false
 )

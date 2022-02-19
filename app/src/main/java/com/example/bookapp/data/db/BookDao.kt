@@ -14,6 +14,6 @@ interface BookDao {
     @Delete
     suspend fun deleteFromFavorites(bookEntity: BookEntity)
 
-    @Query("SELECT * FROM favourite_books WHERE id = :id LIMIT 1")
-    suspend fun getBookById(id: Int): BookEntity?
+    @Query("SELECT * FROM favourite_books WHERE isbn = :isbn LIMIT 1")
+    suspend fun bookExists(isbn: String): BookEntity?
 }

@@ -1,16 +1,16 @@
 package com.example.bookapp.presentation.details
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookapp.domain.models.Book
 import com.example.bookapp.domain.models.BookDetails
 import com.example.bookapp.domain.models.Resource
-import com.example.bookapp.domain.usecase.DeleteBookFromFavoritesUseCase
-import com.example.bookapp.domain.usecase.GetBookDetailsUseCase
-import com.example.bookapp.domain.usecase.SaveBookUseCase
-import com.example.bookapp.domain.usecase.SearchBookByIdUseCase
+import com.example.bookapp.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,11 +20,12 @@ class DetailsViewModel @Inject constructor(
     private val getBookDetailsUseCase: GetBookDetailsUseCase,
     private val saveBookUseCase: SaveBookUseCase,
     private val searchBookByIdUseCase: SearchBookByIdUseCase,
-    private val deleteBookFromFavoritesUseCase: DeleteBookFromFavoritesUseCase
+    private val deleteBookFromFavoritesUseCase: DeleteBookFromFavoritesUseCase,
 ) :
     ViewModel() {
     private val errorMessage = MutableStateFlow("")
-    val searchedBook: Flow<Book?> = flowOf(Book(0, "", "", "", "", "", "", false))
+    private val _searchedBook = MutableLiveData<Book?>()
+    val searchedBook: LiveData<Book?> = _searchedBook
     private val _bookDetails: MutableStateFlow<Resource<BookDetails>> =
         MutableStateFlow(Resource.Loading())
     val bookDetails: StateFlow<Resource<BookDetails>> = _bookDetails
@@ -60,12 +61,11 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun searchBookById(id: Int) {
+    fun searchByIsbn(isbn: String) {
         viewModelScope.launch {
-            searchedBook.collectLatest {
-                searchBookByIdUseCase.invoke(id)
-            }
+            _searchedBook.postValue(searchBookByIdUseCase.invoke(isbn))
         }
     }
+
 
 }

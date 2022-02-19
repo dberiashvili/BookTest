@@ -11,6 +11,6 @@ data class BookDTO(
     val isbn: String,
     val price: String,
     val image: String,
-    val url: String
+    val url: String,
 )
 

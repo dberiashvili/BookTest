@@ -28,6 +28,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
     private val args: DetailsScreenArgs by navArgs()
     private lateinit var binding: FragmentDetailsScreenBinding
 
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +37,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
     ): View {
         binding = FragmentDetailsScreenBinding.inflate(layoutInflater)
         viewModel.getBooksDetails(args.book.isbn)
+        viewModel.searchByIsbn(args.book.isbn)
         binding.backArrow.setOnClickListener {
             findNavController().navigate(DetailsScreenDirections.actionDetailsScreenToHomeScreen())
         }
@@ -48,7 +50,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             context?.openUrl(args.book.url)
         }
 
-
+        viewModel.searchByIsbn(args.book.isbn)
 
         binding.favButton.setOnClickListener {
             if (!args.book.isFavorite) {
@@ -63,16 +65,14 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             }
         }
 
-        viewModel.searchBookById(args.book.id)
-        lifecycleScope.launchWhenStarted {
-            viewModel.searchedBook.collectLatest {
-                if (it!!.isFavorite) {
-                    binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-                } else {
-                    binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                }
+        viewModel.searchedBook.observe(viewLifecycleOwner) {
+            if (it !== null) {
+                binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else {
+                binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
         }
+
         lifecycleScope.launchWhenStarted {
             viewModel.bookDetails.collectLatest {
                 when (it) {

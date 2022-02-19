@@ -1,5 +1,6 @@
 package com.example.bookapp.domain.repository
 
+import com.example.bookapp.data.db.BookEntity
 import com.example.bookapp.domain.models.Book
 import com.example.bookapp.domain.models.BookResponse
 import com.example.bookapp.domain.models.BookDetails
@@ -11,5 +12,5 @@ interface BooksRepository {
     suspend fun saveBook(book:Book)
     fun getSavedBooks(): Flow<List<Book>>
     suspend fun deleteBook(book: Book)
-    suspend fun getBookById(id: Int): Book?
+    suspend fun bookExists(isbn: String): Book?
 }

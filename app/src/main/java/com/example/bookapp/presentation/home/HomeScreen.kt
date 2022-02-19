@@ -72,10 +72,8 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     bookAdapter.clearList()
                     binding.loading.hide()
                     binding.retryView.show()
-                    binding.retryButton.show()
-                    binding.errorText.show()
-                    binding.errorText.text = it.message
-                    binding.retryButton.setOnClickListener {
+                    binding.retryView.setErrorMessage(it.message!!)
+                    binding.retryView.retry = {
                         viewModel.getBooksResponse(viewModel.query.value, viewModel.page)
                     }
                 }

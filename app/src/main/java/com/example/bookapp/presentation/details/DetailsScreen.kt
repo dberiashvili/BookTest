@@ -1,8 +1,6 @@
 package com.example.bookapp.presentation.details
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +15,8 @@ import com.example.bookapp.R
 import com.example.bookapp.databinding.FragmentDetailsScreenBinding
 import com.example.bookapp.domain.models.Resource
 import com.example.bookapp.presentation.utils.hide
+import com.example.bookapp.presentation.utils.openUrl
+import com.example.bookapp.presentation.utils.share
 import com.example.bookapp.presentation.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -40,8 +40,12 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             findNavController().navigate(DetailsScreenDirections.actionDetailsScreenToHomeScreen())
         }
 
+        binding.shareButton.setOnClickListener {
+            context?.share(args.book.url)
+        }
+
         binding.openInBrowserButton.setOnClickListener {
-            openBookInBrowser(args.book.url)
+            context?.openUrl(args.book.url)
         }
 
 
@@ -76,6 +80,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
                         binding.progressBar.show()
                     }
                     is Resource.Success -> {
+                        binding.retryView.hide()
                         val response = it.data!!
                         binding.progressBar.hide()
                         Glide.with(requireContext()).load(response.image)
@@ -88,17 +93,17 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
                         binding.description.text = response.desc
                     }
                     is Resource.Error -> {
-                        binding.progressBar.show()
+                        binding.progressBar.hide()
+                        binding.retryView.show()
+                        binding.retryView.setErrorMessage(it.message!!)
+                        binding.retryView.retry = {
+                            viewModel.getBooksDetails(args.book.isbn)
+                        }
                     }
                 }
             }
         }
         return binding.root
-    }
-
-    private fun openBookInBrowser(uri: String) {
-        val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(uri))
-        startActivity(intent)
     }
 
 }

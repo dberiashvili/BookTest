@@ -23,7 +23,7 @@ class DetailsViewModel @Inject constructor(
     private val deleteBookFromFavoritesUseCase: DeleteBookFromFavoritesUseCase
 ) :
     ViewModel() {
-    val errorMessage = MutableStateFlow("")
+    private val errorMessage = MutableStateFlow("")
     val searchedBook: Flow<Book?> = flowOf(Book(0, "", "", "", "", "", "", false))
     private val _bookDetails: MutableStateFlow<Resource<BookDetails>> =
         MutableStateFlow(Resource.Loading())

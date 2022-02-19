@@ -20,9 +20,10 @@
         <entry key="..\:/BookApp-master/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.174" />
         <entry key="..\:/BookApp-master/app/src/main/res/drawable/rating_starts.xml" value="0.174" />
         <entry key="..\:/BookApp-master/app/src/main/res/drawable/retry_view_background.xml" value="0.174" />
-        <entry key="..\:/BookApp-master/app/src/main/res/layout/book_layout.xml" value="0.5" />
+        <entry key="..\:/BookApp-master/app/src/main/res/layout/book_layout.xml" value="0.45436893203883494" />
         <entry key="..\:/BookApp-master/app/src/main/res/layout/fragment_details_screen.xml" value="0.33" />
         <entry key="..\:/BookApp-master/app/src/main/res/layout/fragment_home_screen.xml" value="0.30416666666666664" />
+        <entry key="..\:/BookApp-master/app/src/main/res/layout/retry_view.xml" value="0.2" />
       </map>
     </option>
   </component>

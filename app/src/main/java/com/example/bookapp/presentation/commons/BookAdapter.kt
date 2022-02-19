@@ -17,8 +17,9 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
             val book = books[position]
             binding.title.text = book.title
             binding.subtitle.text = book.subtitle
+            binding.price.text = book.price
             Glide.with(binding.root).load(book.image).centerCrop()
-                .into(binding.bookImageView)
+                .into(binding.cover)
             binding.root.setOnClickListener {
                 onClick?.invoke(book)
             }

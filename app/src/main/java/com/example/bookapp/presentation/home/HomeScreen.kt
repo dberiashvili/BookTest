@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bookapp.R
@@ -20,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -45,38 +47,40 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
             adapter = bookAdapter
         }
         viewModel.getBooksResponse(viewModel.query.value, viewModel.page)
-        viewModel.getBooks.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    binding.booksRV.show()
-                    binding.retryView.hide()
-                    val books = it.data!!.books
-                    books.map {
-                        bookAdapter.onClick = {
-                            val action =
-                                HomeScreenDirections.actionHomeScreenToDetailsScreen(it)
-                            findNavController().navigate(action)
+        lifecycleScope.launchWhenStarted {
+            viewModel.getBooks.collect {
+                when (it) {
+                    is Resource.Success -> {
+                        binding.booksRV.show()
+                        binding.retryView.hide()
+                        val books = it.data!!.books
+                        books.map {
+                            bookAdapter.onClick = {
+                                val action =
+                                    HomeScreenDirections.actionHomeScreenToDetailsScreen(it)
+                                findNavController().navigate(action)
+                            }
                         }
+                        binding.loading.hide()
+                        bookAdapter.addBooks(books)
+
+
                     }
-                    binding.loading.hide()
-                    bookAdapter.addBooks(books)
 
+                    is Resource.Loading -> {
+                        binding.retryView.hide()
+                        binding.loading.show()
+                        binding.booksRV.hide()
+                    }
 
-                }
-
-                is Resource.Loading -> {
-                    binding.retryView.hide()
-                    binding.loading.show()
-                    binding.booksRV.hide()
-                }
-
-                is Resource.Error -> {
-                    bookAdapter.clearList()
-                    binding.loading.hide()
-                    binding.retryView.show()
-                    binding.retryView.setErrorMessage(it.message!!)
-                    binding.retryView.retry = {
-                        viewModel.getBooksResponse(viewModel.query.value, viewModel.page)
+                    is Resource.Error -> {
+                        bookAdapter.clearList()
+                        binding.loading.hide()
+                        binding.retryView.show()
+                        binding.retryView.setErrorMessage(it.message!!)
+                        binding.retryView.retry = {
+                            viewModel.getBooksResponse(viewModel.query.value, viewModel.page)
+                        }
                     }
                 }
             }
@@ -93,21 +97,23 @@ class HomeScreen : Fragment(R.layout.fragment_home_screen) {
                     viewModel.query.value = editable.toString()
                     viewModel.page = 0
                     viewModel.getBooksResponse(viewModel.query.value, viewModel.page)
-                    viewModel.getBooks.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is Resource.Success -> {
-                                binding.loading.visibility = View.GONE
-                                val books = it.data!!.books
-                                books.map {
-                                    bookAdapter.onClick = {
-                                        val action =
-                                            HomeScreenDirections.actionHomeScreenToDetailsScreen(
-                                                it
-                                            )
-                                        findNavController().navigate(action)
+                    lifecycleScope.launchWhenStarted {
+                        viewModel.getBooks.collect {
+                            when (it) {
+                                is Resource.Success -> {
+                                    binding.loading.visibility = View.GONE
+                                    val books = it.data!!.books
+                                    books.map {
+                                        bookAdapter.onClick = {
+                                            val action =
+                                                HomeScreenDirections.actionHomeScreenToDetailsScreen(
+                                                    it
+                                                )
+                                            findNavController().navigate(action)
+                                        }
                                     }
+                                    bookAdapter.addBooks(books)
                                 }
-                                bookAdapter.addBooks(books)
                             }
                         }
                     }

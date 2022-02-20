@@ -20,7 +20,7 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val getBookDetailsUseCase: GetBookDetailsUseCase,
     private val saveBookUseCase: SaveBookUseCase,
-    private val searchBookByIdUseCase: SearchBookByIdUseCase,
+    private val searchBookByIsbnUseCase: SearchBookByIsbnUseCase,
     private val deleteBookFromFavoritesUseCase: DeleteBookFromFavoritesUseCase,
 ) :
     ViewModel() {
@@ -64,7 +64,7 @@ class DetailsViewModel @Inject constructor(
 
     fun searchByIsbn(isbn: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _searchedBook.postValue(searchBookByIdUseCase.invoke(isbn))
+            _searchedBook.postValue(searchBookByIsbnUseCase.invoke(isbn))
         }
     }
 

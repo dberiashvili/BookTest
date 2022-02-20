@@ -33,8 +33,8 @@ class BooksRepoImpl @Inject constructor(private val service: BookService, privat
         return bookDB.dao.saveBook(book.toEntity())
     }
 
-    override suspend fun deleteBook(book: Book) {
-        bookDB.dao.deleteFromFavorites(book.toEntity())
+    override suspend fun deleteBook(isbn: String) {
+        bookDB.dao.deleteFromFavorites(isbn)
     }
 
     override suspend fun bookExists(isbn: String): Book? {

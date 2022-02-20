@@ -14,10 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.bookapp.R
 import com.example.bookapp.databinding.FragmentDetailsScreenBinding
 import com.example.bookapp.domain.models.Resource
-import com.example.bookapp.presentation.utils.hide
-import com.example.bookapp.presentation.utils.openUrl
-import com.example.bookapp.presentation.utils.share
-import com.example.bookapp.presentation.utils.show
+import com.example.bookapp.presentation.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
@@ -37,10 +34,10 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
     ): View {
         binding = FragmentDetailsScreenBinding.inflate(layoutInflater)
         viewModel.getBooksDetails(args.book.isbn)
-        viewModel.searchByIsbn(args.book.isbn)
         binding.backArrow.setOnClickListener {
             findNavController().navigate(DetailsScreenDirections.actionDetailsScreenToHomeScreen())
         }
+        viewModel.searchByIsbn(args.book.isbn)
 
         binding.shareButton.setOnClickListener {
             context?.share(args.book.url)
@@ -50,18 +47,19 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             context?.openUrl(args.book.url)
         }
 
-        viewModel.searchByIsbn(args.book.isbn)
+
 
         binding.favButton.setOnClickListener {
-            if (!args.book.isFavorite) {
-                binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
-
-                viewModel.saveBook(args.book)
-            } else {
-                binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                viewModel.deleteBookFromFavorites(args.book)
-                args.book.isFavorite = false
-
+            viewModel.searchedBook.observeOnce(viewLifecycleOwner) { book ->
+                if (book != null) {
+                    viewModel.deleteBookFromFavorites(book.isbn)
+                    viewModel.searchByIsbn(args.book.isbn)
+                    binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                } else {
+                    viewModel.saveBook(args.book)
+                    viewModel.searchByIsbn(args.book.isbn)
+                    binding.favButton.setImageResource(R.drawable.ic_baseline_favorite_24)
+                }
             }
         }
 

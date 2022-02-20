@@ -9,6 +9,7 @@ import com.example.bookapp.domain.models.BookDetails
 import com.example.bookapp.domain.models.Resource
 import com.example.bookapp.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -51,10 +52,10 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun deleteBookFromFavorites(book: Book) {
-        viewModelScope.launch {
+    fun deleteBookFromFavorites(isbn: String) {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                deleteBookFromFavoritesUseCase.invoke(book)
+                deleteBookFromFavoritesUseCase.invoke(isbn)
             } catch (e: Exception) {
                 errorMessage.value = e.message ?: "Could not delete from favorites"
             }
@@ -62,7 +63,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     fun searchByIsbn(isbn: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _searchedBook.postValue(searchBookByIdUseCase.invoke(isbn))
         }
     }

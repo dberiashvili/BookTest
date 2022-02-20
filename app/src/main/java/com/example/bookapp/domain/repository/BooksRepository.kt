@@ -11,6 +11,6 @@ interface BooksRepository {
     suspend fun getBooksDetails(isbn: String): BookDetails
     suspend fun saveBook(book:Book)
     fun getSavedBooks(): Flow<List<Book>>
-    suspend fun deleteBook(book: Book)
+    suspend fun deleteBook(isbn: String)
     suspend fun bookExists(isbn: String): Book?
 }

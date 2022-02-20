@@ -5,5 +5,5 @@ import com.example.bookapp.domain.repository.BooksRepository
 import javax.inject.Inject
 
 class DeleteBookFromFavoritesUseCase @Inject constructor(private val repository: BooksRepository) {
-    suspend operator fun invoke(book: Book) =  repository.deleteBook(book)
+    suspend operator fun invoke(isbn: String) =  repository.deleteBook(isbn)
 }
